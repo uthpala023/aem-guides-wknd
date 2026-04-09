@@ -1,0 +1,9 @@
+{
+    "scripts": [
+        "create path (sling:OrderedFolder) /content/dam/wknd",
+        "create path (nt:unstructured) /content/dam/wknd/jcr:content",
+        "set properties on /content/dam/wknd/jcr:content\n  set cq:conf{String} to /conf/wknd\n  set jcr:title{String} to \"WKND Sites Project\"\nend",
+        "create service user cards-service-user with path /home/users/system/cards-service-user",
+        "set ACL for cards-service-user\n  allow jcr:read on /content/dam/wknd\nend"
+    ]
+}
