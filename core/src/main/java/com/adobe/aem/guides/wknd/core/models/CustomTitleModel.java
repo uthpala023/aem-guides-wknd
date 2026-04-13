@@ -1,5 +1,4 @@
 package com.adobe.aem.guides.wknd.core.models;
-
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
