@@ -1,0 +1,2 @@
+#base=js
+media-gallery-banner-authoring.js

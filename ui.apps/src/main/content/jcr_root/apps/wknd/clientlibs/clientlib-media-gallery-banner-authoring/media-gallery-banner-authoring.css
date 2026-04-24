@@ -1,0 +1,15 @@
+coral-dialog.media-gallery-banner__dialog.is-open {
+    width: min(96vw, 72rem);
+}
+
+coral-dialog.media-gallery-banner__dialog .coral3-Dialog-content {
+    max-height: 78vh;
+}
+
+coral-dialog.media-gallery-banner__dialog coral-multifield-item-content > .coral-FixedColumn {
+    margin: 0;
+}
+
+coral-dialog.media-gallery-banner__dialog coral-multifield-item-content .coral-FixedColumn-column {
+    min-width: 18rem;
+}

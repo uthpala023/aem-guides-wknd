@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root
+    xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+    xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    xmlns:cq="http://www.day.com/jcr/cq/1.0"
+    xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Media Gallery Banner"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    extraClientlibs="[wknd.media-gallery-banner.authoring]"
+    granite:class="media-gallery-banner__dialog">
+
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container">
+
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/tabs">
+
+                <items jcr:primaryType="nt:unstructured">
+                    <settings
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Gallery Settings"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+
+                        <items jcr:primaryType="nt:unstructured">
+                            <componentId
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldLabel="Component ID"
+                                fieldDescription="Optional HTML ID for analytics or deep links."
+                                name="./componentId"/>
+
+                            <showThumbnails
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                text="Show Thumbnail Navigation"
+                                name="./showThumbnails"
+                                value="{Boolean}true"
+                                uncheckedValue="{Boolean}false"/>
+
+                            <transitionType
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                fieldLabel="Transition Type"
+                                fieldDescription="Choose the hero change animation."
+                                name="./transitionType">
+
+                                <items jcr:primaryType="nt:unstructured">
+                                    <slide jcr:primaryType="nt:unstructured" text="Slide" value="slide"/>
+                                    <fade jcr:primaryType="nt:unstructured" text="Fade" value="fade"/>
+                                </items>
+                            </transitionType>
+
+                            <autoPlayInterval
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                fieldLabel="Autoplay Interval (sec)"
+                                fieldDescription="Set 0 to disable autoplay."
+                                min="0"
+                                name="./autoPlayInterval"/>
+                        </items>
+                    </settings>
+
+                    <galleryItemsTab
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Gallery Items"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+
+                        <items jcr:primaryType="nt:unstructured">
+                            <galleryItems
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                composite="{Boolean}true"
+                                fieldLabel="Gallery Items"
+                                fieldDescription="Add images or videos with optional badges and thumbnail assets.">
+
+                                <field
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                                    margin="{Boolean}true"
+                                    name="./items">
+
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <primaryColumn
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <title
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    fieldLabel="Slide Title"
+                                                    fieldDescription="Optional title shown on the hero banner."
+                                                    name="./title"/>
+
+                                                <altText
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    fieldLabel="Alt Text"
+                                                    fieldDescription="Used for image accessibility and video preview text."
+                                                    name="./altText"/>
+
+                                                <mediaType
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                    fieldLabel="Media Type"
+                                                    fieldDescription="Choose whether this slide renders an image or a video preview."
+                                                    name="./mediaType"
+                                                    granite:class="media-gallery-banner__media-type">
+
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <image jcr:primaryType="nt:unstructured" text="Image" value="image"/>
+                                                        <video jcr:primaryType="nt:unstructured" text="Video" value="video"/>
+                                                    </items>
+                                                </mediaType>
+
+                                                <imageContainer
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                    granite:class="media-gallery-banner__field-group media-gallery-banner__field-group--image">
+
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <image
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                            fieldLabel="Hero Image"
+                                                            fieldDescription="Select a DAM image for the hero slide."
+                                                            rootPath="/content/dam"
+                                                            name="./image"/>
+                                                    </items>
+                                                </imageContainer>
+
+                                                <videoContainer
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                    granite:class="media-gallery-banner__field-group media-gallery-banner__field-group--video"
+                                                    style="display: none;">
+
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <videoPoster
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                            fieldLabel="Video Poster / Preview Image"
+                                                            fieldDescription="Shown before video playback begins."
+                                                            rootPath="/content/dam"
+                                                            name="./videoPosterImage"/>
+
+                                                        <videoUrl
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                            fieldLabel="Video Asset"
+                                                            fieldDescription="Select a DAM video asset or direct media path."
+                                                            rootPath="/content/dam"
+                                                            name="./videoUrl"/>
+                                                    </items>
+                                                </videoContainer>
+                                            </items>
+                                        </primaryColumn>
+
+                                        <secondaryColumn
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <thumbnailImage
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                    fieldLabel="Thumbnail Image"
+                                                    fieldDescription="Optional dedicated thumbnail. Falls back to the hero image or video poster."
+                                                    rootPath="/content/dam"
+                                                    name="./thumbnailImage"/>
+
+                                                <labels
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                    composite="{Boolean}true"
+                                                    fieldLabel="Overlay Labels">
+
+                                                    <field
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                        name="./labels">
+
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <text
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Label Text"
+                                                                name="./text"/>
+                                                        </items>
+                                                    </field>
+                                                </labels>
+                                            </items>
+                                        </secondaryColumn>
+                                    </items>
+                                </field>
+                            </galleryItems>
+                        </items>
+                    </galleryItemsTab>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
