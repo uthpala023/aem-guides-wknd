@@ -1,0 +1,106 @@
+<sly data-sly-use.model="com.adobe.aem.guides.wknd.core.models.MediaGalleryBannerModel"/>
+
+<div class="cmp-media-gallery-banner"
+     id="${model.componentId}"
+     data-sly-test="${model.hasItems}"
+     data-cmp-is="media-gallery-banner"
+     data-interval="${model.autoPlayInterval}"
+     data-transition="${model.transitionType}"
+     role="region"
+     aria-roledescription="carousel"
+     aria-label="${model.ariaLabel}">
+
+    <div class="cmp-media-gallery-banner__hero">
+        <div class="cmp-media-gallery-banner__slides" aria-live="polite">
+            <sly data-sly-list.item="${model.items}">
+                <article class="cmp-media-gallery-banner__slide${itemList.first ? ' is-active' : ''}"
+                         id="${model.componentId}-slide-${itemList.count}"
+                         data-index="${itemList.index}"
+                         role="group"
+                         aria-roledescription="slide"
+                         aria-label="Slide ${itemList.count} of ${model.items.size}">
+                    <div class="cmp-media-gallery-banner__media">
+                        <sly data-sly-test="${item.video && item.heroAsset}">
+                            <div class="cmp-media-gallery-banner__video-preview" data-video-preview>
+                                <img class="cmp-media-gallery-banner__image"
+                                     src="${item.heroAsset}"
+                                     alt="${item.altText}"/>
+                                <button class="cmp-media-gallery-banner__play"
+                                        type="button"
+                                        data-video-toggle
+                                        aria-label="${item.playButtonLabel}">
+                                    <span class="cmp-media-gallery-banner__play-icon"></span>
+                                </button>
+                            </div>
+                            <video class="cmp-media-gallery-banner__video"
+                                   controls
+                                   playsinline
+                                   preload="metadata"
+                                   poster="${item.heroAsset}"
+                                   data-video
+                                   aria-label="${item.altText}">
+                                <source src="${item.videoUrl}"/>
+                            </video>
+                        </sly>
+
+                        <sly data-sly-test="${!item.video && item.heroAsset}">
+                            <img class="cmp-media-gallery-banner__image"
+                                 src="${item.heroAsset}"
+                                 alt="${item.altText}"/>
+                        </sly>
+                    </div>
+
+                    <div class="cmp-media-gallery-banner__labels" data-sly-test="${item.labels}">
+                        <sly data-sly-list.label="${item.labels}">
+                            <span class="cmp-media-gallery-banner__badge">${label.text}</span>
+                        </sly>
+                    </div>
+
+                    <h3 class="cmp-media-gallery-banner__title" data-sly-test="${item.title}">
+                        ${item.title}
+                    </h3>
+                </article>
+            </sly>
+        </div>
+
+        <button class="cmp-media-gallery-banner__nav cmp-media-gallery-banner__prev"
+                type="button"
+                aria-label="Previous slide"
+                data-gallery-action="previous">
+            <span aria-hidden="true">&#10094;</span>
+        </button>
+        <button class="cmp-media-gallery-banner__nav cmp-media-gallery-banner__next"
+                type="button"
+                aria-label="Next slide"
+                data-gallery-action="next">
+            <span aria-hidden="true">&#10095;</span>
+        </button>
+    </div>
+
+    <div class="cmp-media-gallery-banner__thumbnails"
+         data-sly-test="${model.showThumbnails}">
+        <sly data-sly-list.item="${model.items}">
+            <button class="cmp-media-gallery-banner__thumb${itemList.first ? ' is-active' : ''}"
+                    type="button"
+                    data-index="${itemList.index}"
+                    aria-controls="${model.componentId}-slide-${itemList.count}"
+                    aria-current="${itemList.first ? 'true' : 'false'}"
+                    aria-label="Show slide ${itemList.count}">
+                <span class="cmp-media-gallery-banner__thumb-media">
+                    <img class="cmp-media-gallery-banner__thumb-image"
+                         src="${item.thumbnailImage}"
+                         alt="${item.thumbnailAltText}"/>
+                    <span class="cmp-media-gallery-banner__thumb-play"
+                          data-sly-test="${item.video}"
+                          aria-hidden="true">
+                        <span class="cmp-media-gallery-banner__thumb-play-icon"></span>
+                    </span>
+                </span>
+            </button>
+        </sly>
+    </div>
+</div>
+
+<div class="cq-placeholder"
+     data-sly-test="${!model.hasItems && wcmmode.edit}"
+     data-emptytext="Media Gallery Banner"></div>
